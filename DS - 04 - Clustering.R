@@ -37,3 +37,29 @@ plot(x, y, col = kmeansObj$cluster, pch = 19, cex = 2)
 points(kmeansObj$centers, col = 1:3, pch = 3, lwd = 3)
 
 # you can also use heatmap()
+
+# Dimension Reduction
+# Create a noisy, random matrix
+set.seed(12345)
+par(mar = rep(0.2, 4))
+dataMatrix <- matrix(rnorm(400), nrow = 40)
+image(1:10, 1:40, t(dataMatrix)[,nrow(dataMatrix):1])
+
+# We can then run a hierarchical analysis on the rows
+par(mar = rep(0.2, 4))
+# You can see cluster analysis, no real interesting pattern
+heatmap(dataMatrix)
+
+# So, we add a pattern to the dataset
+set.seed(678910)
+# loop through rows, on a random row, if the coin is a 1, apply a pattern
+for (i in 1:40) {
+  # flip a coin
+  coinFlip <- rbinom(1, size = 1, prob = 0.5)
+  # if coin is heads, add a common pattern to that row
+  if (coinFlip) {
+    dataMatrix[i, ] <- dataMatrix[i, ] + rep(c(0,3), each = 5)
+  }
+}
+
+# repeat the heatmap
