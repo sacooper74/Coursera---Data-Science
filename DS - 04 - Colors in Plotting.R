@@ -26,3 +26,22 @@ pal(2)
 # 10 characters vectors between red and yellow
 pal(10)
 
+# RColorBrewer gives you more options
+install.packages("RColorBrewer")
+library(RColorBrewer)
+# 2 arguments - numer of colors and the name of the pallette (look in the help page for brewer.pal)
+cols <- brewer.pal(3, "BuGn")
+# it returns hexadecimal
+cols
+# pass the colors into the color ramp palette
+pal <- colorRampPalette(cols)
+image(volcano, col = pal(20))
+
+# the smoothScatter function also uses colors well - it ensures we don't just get a mess of points - it's a 
+# 2D histogram with default blues palette in RColorBrewer palette
+x <- rnorm(1000)
+y <- rnorm(1000)
+smoothScatter(x, y)
+
+# use transparency for high-density plots - this is controlled in rgb() with the alpha parameter (e.g. 0.2)
+plot(x, y, col=rgb(0,0,0,0.2), pch = 19)
