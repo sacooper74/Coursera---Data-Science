@@ -1,0 +1,43 @@
+---
+title: "R Markdown Tips"
+output: html_document
+---
+
+# Some tips and tricks
+
+## You can create variables and refer to them
+
+```{r computetime, echo=FALSE}
+time <- format(Sys.time(), "%a %b %d %X %Y")
+rand <- rnorm(1)
+```
+
+The current time is `r time` and my favourite random number is `r rand`.
+
+## You can simulate data and plot it
+
+```{r simulatedata, echo=TRUE}
+x <- rnorm(100); y <- x + rnorm(100, sd = 0.5)
+```
+
+Here is a scatterplot of the data:
+```{r scatterplot, fig.height=4}
+par(mar = c(5,4,1,1), las = 1)
+plot(x,y,main="My Simulated Data")
+```
+
+## You can create tables with xtable
+
+```{r fitmodel}
+library(datasets)
+data(airquality)
+fit <- lm(Ozone ~ Wind + Temp + Solar.R, data = airquality)
+```
+
+Here is a table of the regression coefficientis:
+```{r showtable, results="asis"}
+library(xtable)
+xt <- xtable(summary(fit))
+print(xt, type="html")
+```
+

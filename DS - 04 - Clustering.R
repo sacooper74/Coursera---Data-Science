@@ -63,3 +63,10 @@ for (i in 1:40) {
 }
 
 # repeat the heatmap
+
+# Find the % of fields that are NA
+mean(is.na(x0))
+
+# Boxplot with log10
+boxplot(log10(x0), log10(x1))
+
